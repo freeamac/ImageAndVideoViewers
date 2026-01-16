@@ -1,0 +1,12 @@
+<!-- DTD for an image slide show -->
+<!ELEMENT slideshow (title, copyright?, picture+)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT copyright (#PCDATA)>
+<!ELEMENT picture (image, caption, date, location, asa?, roll_num?, roll_max?)>
+<!ELEMENT image (#PCDATA)>
+<!ELEMENT caption (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT location (#PCDATA)>
+<!ELEMENT asa (#PCDATA)>
+<!ELEMENT roll_num (#PCDATA)>
+<!ELEMENT roll_max (#PCDATA)>

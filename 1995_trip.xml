@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="slideshow.xsl"?>
+<!DOCTYPE slideshow SYSTEM "slideshow.dtd">
+<slideshow>
+  <title>1995 Trip Photos</title>
+  <copyright>Copyright 2025 by amac</copyright>
+  <picture>
+    <image>1995_trip/trip-3.jpg</image>
+    <caption>King Montuhotep the second (11th Dynasty) founded the Middle Kingdom. This painted sandstone statute found in the Temple of Mentuhotep Nobhepetre shows the Red Crown of Lower Egypt.</caption>
+    <date>June 17th, 1995</date>
+    <location>Egyptian Antiquities Museum, Cairo, Egypt</location>
+    <asa>400</asa>
+    <roll_num>3</roll_num>
+    <roll_max>18</roll_max>
+  </picture>
+  <picture>
+    <image>1995_trip/trip-4.jpg</image>
+    <caption>A somewhat unusual sphix portrait of Amenemhet III (18th Dynasty) with lion ears and mane. Made of granite.</caption>
+    <date>June 18th, 1995</date>
+    <location>Egyptian Antiquities Museum, Cairo, Egypt</location>
+    <asa>400</asa>
+    <roll_num>5</roll_num>
+    <roll_max>18</roll_max>
+  </picture>
+  <picture>
+    <image>1995_trip/trip-5.jpg</image>
+    <caption>The sphinx of Queen Hatshepsut (18th Dynasty) created in granite. Found at Deir el-Bahari</caption>
+    <date>June 18th, 1995</date>
+    <location>Egyptian Antiquities Museum, Cairo, Egypt</location>
+    <asa>400</asa>
+    <roll_num>7</roll_num>
+    <roll_max>18</roll_max>
+  </picture>
+</slideshow>
