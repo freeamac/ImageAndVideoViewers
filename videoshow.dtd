@@ -1,0 +1,9 @@
+<!-- DTD for an video show -->
+<!ELEMENT videos (title, copyright?, video+)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT copyright (#PCDATA)>
+<!ELEMENT video (caption, source, date?, location?)>
+<!ELEMENT caption (#PCDATA)>
+<!ELEMENT source (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT location (#PCDATA)>
