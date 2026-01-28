@@ -296,7 +296,7 @@ class ImageViewerApp:
         self.back_button.pack(side=tk.RIGHT, padx=5, pady=5)
 
     def retrieve_image_paths(self, collection_path):
-        """ Read the collection information and return a list of immage information objects. """
+        """ Read the collection information and return a list of image information objects. """
         image_paths = []
         try:
             with open(self.collection_path, 'r', encoding="utf-8") as fp:
@@ -338,7 +338,7 @@ class ImageViewerApp:
         """Allow the user to open a collection of images."""
         self.collection_path = filedialog.askopenfilename(
             title="Select Image Collection",
-            filetypes=[("Slides Show Collecction", "*.xml")],
+            filetypes=[("Slide Show Collections", "*.xml")],
         )
         if self.collection_path:
             # Add selected images to the list
@@ -369,7 +369,7 @@ class ImageViewerApp:
             self.current_image = ImageTk.PhotoImage(image)
             self.image_area.config(image=self.current_image, text="")
 
-            # Get image metadata information
+            # Get and display image metadata information
             self.caption_text_label.config(text=self.collection_images[index].image_caption)
             self.date_label.config(text=self.collection_images[index].image_date)
             if self.collection_images[index].image_asa is not None:
@@ -381,8 +381,6 @@ class ImageViewerApp:
                 self.roll_number_label.config(text=f"{self.collection_images[index].roll_number} of {self.collection_images[index].roll_max}")
             else:
                 self.roll_number_label.config(text="")
-
-            # Display image metadata information
 
             # Update the image count label
             self.update_image_count_label()
