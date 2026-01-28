@@ -1,3 +1,7 @@
+# Image And Video Viewers
+
+A set of viewers, one for jpeg images and the other for mp4 video files. Each viewer runs off custom defition files constructed in XML.
+
 # ImageViewer
 View images based on a custom formatted XML description file
 
@@ -34,6 +38,12 @@ In manual display mode, the following key bindings are available:
 | \<Right\> | Go To Next Image |
 | \<Escape\> | Go To First Image |
 
+## Execution
+
+```
+python3 image_viewer.py
+```
+
 ## Creating Standalone Executable
 
 Use [PyInstaller](https://pyinstaller.org/en/stable/) as follows in Powershell to create a standalone Windows executable:
@@ -43,3 +53,40 @@ pyinstaller ImageViewer.spec
 ```
 
 and the standalone executable will be found in the *dist* folder.
+
+# Video Viewer
+
+## XML Document Type Definition
+This is the Document Type Definition required in the xml file driving the VideoViewer:
+
+```
+<!-- DTD for an video show -->
+<!ELEMENT videos (title, copyright?, video+)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT copyright (#PCDATA)>
+<!ELEMENT video (caption, source, date?, location?)>
+<!ELEMENT caption (#PCDATA)>
+<!ELEMENT source (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT location (#PCDATA)>
+```
+
+## Key Bindings
+
+The following key bindings are available:
+
+| Key Binding | Action |
+|---|---|
+| \<Left\> | Go To Previous Video |
+| \<Right\> | Go To Next Video |
+| \<Escape\> | Go To First Video |
+
+## Execution
+
+```
+python3 video_viewer.py
+```
+
+## Creating Standalone Executable
+
+Due to the requirements to run video on differing platforms, no standalone executable is available.
