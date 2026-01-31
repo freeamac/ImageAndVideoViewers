@@ -87,7 +87,9 @@ The following key bindings are available:
 
 ## Execution
 
-### Requirements
+<details>
+
+<summary><b>Old information on using cv2 library which did not allow audio with the video</b></summary>
 
 Video replay is dependent on the [opencv library](https://github.com/opencv/opencv). This can be a tricky piece of software to install correctly. On Ubuntu, the following
 packages needed to be installed:
@@ -109,6 +111,13 @@ You will need to do the above if you see errors like the following when processi
 ```
 [swscaler @ 0x40d5f980] Unsupported input (Operation not supported): fmt:yuv420p csp:bt2020c prim:bt2020 trc:unknown -> fmt:bgr24 csp:gbr prim:unknown trc:unknown
 ```
+</details>
+
+### Requirements
+
+The video playing with audio requires the [FFpyPlayer library](https://pypi.org/project/ffpyplayer/). This was used after attempting to use opencv which did not contain support for playing to audio with the video display. Audio now works although it may not match the video frame rate exactly.
+
+See the details section on opencv above if you need to install the FFmpeg library.
 
 Once the requirements are installed, to execute via python:
 

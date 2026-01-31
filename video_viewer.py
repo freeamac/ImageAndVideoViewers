@@ -4,11 +4,11 @@ from io import BytesIO
 import os
 from pathlib import Path
 import tkinter as tk
-from tkinter import PhotoImage, filedialog, messagebox 
+from tkinter import PhotoImage, filedialog, messagebox
 import sys
 import xml.etree.ElementTree as ET
 
-import cv2
+from ffpyplayer.player import MediaPlayer
 from PIL import Image, ImageTk
 
 
@@ -33,7 +33,7 @@ class VideoViewerApp:
         self.set_window_icon()
 
         # Initialize image list and index
-        self.video_capture = None
+        self.mediaplayer_capture = None
         self.running_video = False
         self.collection_path = ""
         self.collection_videos = []
@@ -192,8 +192,10 @@ class VideoViewerApp:
 
     def reset_collection(self):
         """Clear the video list and reset the display."""
-        if self.video_capture is not None:
-            self.video_capture.release()
+        if self.mediaplayer_capture is not None:
+            self.mediaplayer_capture.set_pause(True)
+            self.mediaplayer_capture.close_player()
+            self.mediaplayer_capture = None
         self.collection_videos = []
         self.current_video_index = 0
         self.collection_path = ""
@@ -227,13 +229,25 @@ class VideoViewerApp:
             """Reads a new frame from the video and updates the Tkinter label."""
 
             # Read a frame
-            have_frame, frame = self.video_capture.read()
+            if self.mediaplayer_capture is None:
+                return
+            media_frame, val = self.mediaplayer_capture.get_frame()
 
             # Handle the frame
-            if have_frame:
-                # Convert the frame from BGR to RGB format (PIL/Tkinter requirement)
-                cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                frame_image = Image.fromarray(cv2image)
+            if val == 'eof':
+                # Video ended. Release video and indicate done with this video
+                self.mediaplayer_capture.close_player()
+                self.mediaplayer_capture = None
+                self.caption_text_label.config(text="Video playback ended.")
+                self.date_label.config(text="")
+                self.location_label.config(text="")
+            elif media_frame is None:
+                root.after(5, update_frame)
+            else:
+                # Convert the frame from FFPyPlayer format to RGB format (PIL/Tkinter requirement)
+                mediaplayer_image, timer = media_frame
+                data = mediaplayer_image.to_bytearray()[0]
+                frame_image = Image.frombytes("RGB", mediaplayer_image.get_size(), bytes(data))
 
                 # Get the size of the video area
                 area_width = self.video_area.winfo_width()
@@ -246,17 +260,10 @@ class VideoViewerApp:
                 self.current_video = ImageTk.PhotoImage(image=frame_image)
                 self.video_area.config(image=self.current_video, text="")
 
-                # Call this function again after a small delay (e.g., 15 milliseconds)
+                # Call this function again after a small delay (e.g., 1 milliseconds)
                 # to process the next frame and create a continuous loop
                 if self.running_video:
-                    self.root.after(5, update_frame)
-
-            else:
-                # Video ended. Release video and indicate done with this video
-                self.video_capture.release()
-                self.caption_text_label.config(text="Video playback ended.")
-                self.date_label.config(text="")
-                self.location_label.config(text="")
+                    self.root.after(int(timer), update_frame)
 
         if not self.collection_videos:
             self.video_area.config(image="", text="No Video Loaded")
@@ -281,11 +288,8 @@ class VideoViewerApp:
             # Update the video count label
             self.update_video_count_label()
 
-            # Setup OpenCV and open the video
-            self.video_capture = cv2.VideoCapture(video_path)
-
-            if not self.video_capture.isOpened():
-                raise Exception("Could not open video file.")
+            # Open up audio playback
+            self.mediaplayer_capture = MediaPlayer(str(video_path))
 
             # Start the frame update process
             update_frame()
@@ -301,8 +305,10 @@ class VideoViewerApp:
 
         if self.collection_videos:
             # Clean up current video capture
-            if self.video_capture is not None:
-                self.video_capture.release()
+            if self.mediaplayer_capture is not None:
+                self.mediaplayer_capture.set_pause(True)
+                self.mediaplayer_capture.close_player()
+                self.mediaplayer_capture = None
 
             self.current_video_index = (self.current_video_index - 1) % len(self.collection_videos)
 
@@ -316,8 +322,10 @@ class VideoViewerApp:
 
         if self.collection_videos:
             # Clean up current video capture
-            if self.video_capture is not None:
-                self.video_capture.release()
+            if self.mediaplayer_capture is not None:
+                self.mediaplayer_capture.set_pause(True)
+                self.mediaplayer_capture.close_player()
+                self.mediaplayer_capture = None
 
             self.current_video_index = (self.current_video_index + 1) % len(self.collection_videos)
 
@@ -331,8 +339,10 @@ class VideoViewerApp:
 
         if self.collection_videos:
             # Clean up current video capture
-            if self.video_capture is not None:
-                self.video_capture.release()
+            if self.mediaplayer_capture is not None:
+                self.mediaplayer_capture.set_pause(True)
+                self.mediaplayer_capture.close_player()
+                self.mediaplayer_capture = None
 
             self.current_video_index = 0
 
