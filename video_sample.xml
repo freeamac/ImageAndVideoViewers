@@ -14,4 +14,8 @@
     <source>ireland/nexussample.mp4</source>
     <caption>Tomomi taking a walk on the beach.</caption>
   </video>
+  <video>
+    <source>ireland/manta.mov</source>
+    <caption>Manta ray at the end of the pier.</caption>
+  </video>
 </videoshow>
