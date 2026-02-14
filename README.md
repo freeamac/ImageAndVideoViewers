@@ -23,6 +23,20 @@ This is the Document Type Definition required in the xml file driving the ImageV
 <!ELEMENT roll_max (#PCDATA)>
 ```
 
+## Validation
+
+Easily done with xmllint which can be installed on ubuntu:
+
+```
+$ sudo apt install libxml2-utils
+```
+
+and then use the following xmllint syntax:
+
+```
+$ xmllint --dtdvalid slideshow.dtd --noout <file_to_validate>
+```
+
 ## Key Bindings
 In the automated slideshow mode, the following key bindings are available:
 
@@ -73,6 +87,20 @@ This is the Document Type Definition required in the xml file driving the VideoV
 <!ELEMENT source (#PCDATA)>
 <!ELEMENT date (#PCDATA)>
 <!ELEMENT location (#PCDATA)>
+```
+
+## Validation
+
+Easily done with xmllint which can be installed on ubuntu:
+
+```
+$ sudo apt install libxml2-utils
+```
+
+and then use the following xmllint syntax:
+
+```
+$ xmllint --dtdvalid videoshow.dtd --noout <file_to_validate>
 ```
 
 ## Key Bindings
